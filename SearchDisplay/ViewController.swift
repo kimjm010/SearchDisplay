@@ -48,19 +48,19 @@ extension ViewController {
         
         // MARK: - Create Popular Tag View
         
-        let popularLabel = UILabel().then {
+        let recommendationLabel = UILabel().then {
             $0.text = "추천 키워드"
             $0.textColor = .label
-//            $0.font = UIFont.nanumGothic(.bold, size: 16)
+            //$0.font = UIFont.nanumGothic(.bold, size: 16)
             $0.font = .systemFont(ofSize: 24)
         }
         
-        let popularTagView = TagListView().then {
+        let recommendationTagView = TagListView().then {
             $0.addTags(["빡코딩", "코딩", "오늘도 빡코딩", "할라피뇨"])
             $0.addTags(["코딩", "빡코딩", "버거킹", "돈까스"])
             $0.addTags(["치즈", "오므라이스", "핫도그", "아이스 아메리카노"])
-//            $0.textFont = .nanumGothic(.regular, size: 12)
-            $0.textFont = .systemFont(ofSize: 12)
+            //$0.textFont = .nanumGothic(.regular, size: 12)
+            $0.textFont = .systemFont(ofSize: 14)
             $0.alignment = .leading
             $0.tagBackgroundColor = .white
             $0.borderColor = .systemGray2
@@ -73,9 +73,9 @@ extension ViewController {
             $0.paddingX = 10
         }
         
-        let populatStackView = UIStackView().then {
-            $0.addArrangedSubview(popularLabel)
-            $0.addArrangedSubview(popularTagView)
+        let recommendationStackView = UIStackView().then {
+            $0.addArrangedSubview(recommendationLabel)
+            $0.addArrangedSubview(recommendationTagView)
             
             $0.spacing = 10
             $0.axis = .vertical
@@ -84,20 +84,59 @@ extension ViewController {
             $0.backgroundColor = .clear
         }
         
+        recommendationLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview()
+        }
+        
+        // MARK: - Create Popular Keywords
+        
+        let popularLabel = UILabel().then {
+            $0.text = "인기 검색어"
+            $0.textColor = .label
+            //$0.font = UIFont.nanumGothic(.bold, size: 16)
+            $0.font = .systemFont(ofSize: 24)
+        }
+        
+        let popularKeyWords = ["빡코딩", "오늘도 빡코딩", "버거킹", "오므라이스", "핫도그", "아이스크림", "치즈", "빡코딩",
+                               "빡코딩", "오늘도 빡코딩", "버거킹", "오므라이스", "핫도그", "아이스크림", "치즈", "빡코딩",
+                               "빡코딩", "오늘도 빡코딩"]
+        var labels = [UILabel]()
+        
+        popularKeyWords.forEach { keyword in
+            let keywordLabel = UILabel().then {
+                $0.text = keyword
+                $0.textColor = UIColor().tagViewTextColor
+                $0.font = .systemFont(ofSize: 15)
+            }
+            
+            labels.append(keywordLabel)
+        }
+        
+        let popularKeywordsStackView = UIStackView().then { (stackView) in
+            stackView.addArrangedSubview(popularLabel)
+            
+            labels.forEach { (label) in
+                stackView.addArrangedSubview(label)
+            }
+            
+            stackView.spacing = 10
+            stackView.axis = .vertical
+            stackView.alignment = .leading
+            stackView.distribution = .fill
+        }
+        
         popularLabel.snp.makeConstraints {
             $0.leading.equalToSuperview()
-            $0.top.equalToSuperview()
         }
         
         
-        popularTagView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
+        // MARK: - Create Search Container View
         
         let searchContainerView = UIView().then {
             $0.addSubview(searchButton)
             $0.addSubview(searchTextField)
-            $0.addSubview(populatStackView)
+            $0.addSubview(recommendationStackView)
+            $0.addSubview(popularKeywordsStackView)
             
             $0.backgroundColor = UIColor().searchViewBackgroundColor
             $0.layer.cornerRadius = 6
@@ -114,8 +153,13 @@ extension ViewController {
             $0.leading.equalTo(searchButton.snp.trailing).offset(8)
         }
         
-        populatStackView.snp.makeConstraints {
+        recommendationStackView.snp.makeConstraints {
             $0.top.equalTo(searchContainerView.snp.bottom).offset(24)
+            $0.horizontalEdges.equalToSuperview()
+        }
+        
+        popularKeywordsStackView.snp.makeConstraints {
+            $0.top.equalTo(recommendationStackView.snp.bottom).offset(24)
             $0.horizontalEdges.equalToSuperview()
         }
         
