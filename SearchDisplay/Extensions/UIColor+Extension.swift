@@ -17,4 +17,17 @@ extension UIColor {
         
         return UIColor(red: newRed, green: newGreen, blue: newBlue, alpha: 1.0)
     }
+    
+    var searchViewBackgroundColor: UIColor {
+        return UIColor(red: 246 / 255, green: 246 / 255, blue: 246 / 255, alpha: 1.0)
+    }
+    
+    var searchViewTextColor: UIColor {
+        return UIColor(red: 193 / 255, green: 193 / 255, blue: 193 / 255, alpha: 1.0)
+    }
+    
+    
+    var tagViewTextColor: UIColor {
+        return UIColor(red: 108 / 255, green: 100 / 255, blue: 100 / 255, alpha: 1.0)
+    }
 }

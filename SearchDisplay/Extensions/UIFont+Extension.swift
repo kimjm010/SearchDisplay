@@ -12,11 +12,11 @@ import UIKit
 extension UIFont {
 
     public enum NanumGothicType: String {
-        case light = "-Reguler"
+        case regular = "-Regular"
         case bold = "-Bold"
     }
 
-    static func nanumGothic(_ type: NanumGothicType = .light, size: CGFloat = UIFont.systemFontSize) -> UIFont {
+    static func nanumGothic(_ type: NanumGothicType = .regular, size: CGFloat = UIFont.systemFontSize) -> UIFont {
         return UIFont(name: "NanumGothic\(type.rawValue)", size: size)!
     }
 }
